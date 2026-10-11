@@ -254,6 +254,70 @@ public final class ConsoleHelper {
     // ------------------------------------------------------------------
 
     /**
+     * Prints a prompt and reads an integer number of type {@code byte}, that
+     * is between {@value Byte#MIN_VALUE} and {@value Byte#MAX_VALUE}.
+     *
+     * @param prompt the message shown to the user
+     * @return the number typed by the user
+     * @throws NoSuchElementException if there is no more input
+     */
+    public static byte readByte(String prompt) {
+        return (byte) readLong(prompt, Byte.MIN_VALUE, Byte.MAX_VALUE);
+    }
+
+    /**
+     * Prints a prompt and reads an integer number of type {@code byte} between
+     * {@code min} and {@code max}, both included. The bounds are {@code int}s,
+     * so that a call such as {@code readByte("Age? ", 0, 120)} compiles without
+     * casts, but they must be valid {@code byte} values.
+     *
+     * @param prompt the message shown to the user
+     * @param min    the smallest accepted value
+     * @param max    the largest accepted value
+     * @return the number typed by the user, such that {@code min <= n <= max}
+     * @throws IllegalArgumentException if {@code min > max}, or if a bound is
+     *                                  not between {@value Byte#MIN_VALUE} and
+     *                                  {@value Byte#MAX_VALUE}
+     * @throws NoSuchElementException   if there is no more input
+     */
+    public static byte readByte(String prompt, int min, int max) {
+        checkInterval(min, max, Byte.MIN_VALUE, Byte.MAX_VALUE);
+        return (byte) readLong(prompt, min, max);
+    }
+
+    /**
+     * Prints a prompt and reads an integer number of type {@code short}, that
+     * is between {@value Short#MIN_VALUE} and {@value Short#MAX_VALUE}.
+     *
+     * @param prompt the message shown to the user
+     * @return the number typed by the user
+     * @throws NoSuchElementException if there is no more input
+     */
+    public static short readShort(String prompt) {
+        return (short) readLong(prompt, Short.MIN_VALUE, Short.MAX_VALUE);
+    }
+
+    /**
+     * Prints a prompt and reads an integer number of type {@code short}
+     * between {@code min} and {@code max}, both included. As in
+     * {@link #readByte(String, int, int)}, the bounds are {@code int}s but
+     * they must be valid {@code short} values.
+     *
+     * @param prompt the message shown to the user
+     * @param min    the smallest accepted value
+     * @param max    the largest accepted value
+     * @return the number typed by the user, such that {@code min <= n <= max}
+     * @throws IllegalArgumentException if {@code min > max}, or if a bound is
+     *                                  not between {@value Short#MIN_VALUE} and
+     *                                  {@value Short#MAX_VALUE}
+     * @throws NoSuchElementException   if there is no more input
+     */
+    public static short readShort(String prompt, int min, int max) {
+        checkInterval(min, max, Short.MIN_VALUE, Short.MAX_VALUE);
+        return (short) readLong(prompt, min, max);
+    }
+
+    /**
      * Prints a prompt and reads an integer number of type {@code int}.
      *
      * @param prompt the message shown to the user
@@ -309,6 +373,69 @@ public final class ConsoleHelper {
             } catch (NumberFormatException e) {
                 println(message("error.notAnInteger"));
             }
+        }
+    }
+
+    /**
+     * Prints a prompt and reads an integer number of type {@code long} between
+     * {@code min} and {@code max}, both included. Used by
+     * {@link #readByte(String)} and {@link #readShort(String)}, so that a value
+     * too large for the type gets the out-of-range message.
+     */
+    private static long readLong(String prompt, long min, long max) {
+        while (true) {
+            long value = readLong(prompt);
+            if (min <= value && value <= max) {
+                return value;
+            }
+            println(message("error.outOfRange", min, max));
+        }
+    }
+
+    /**
+     * Prints a prompt and reads a decimal number of type {@code float}. Both
+     * {@code 1.5} and {@code 1,5} are accepted.
+     *
+     * @param prompt the message shown to the user
+     * @return the number typed by the user
+     * @throws NoSuchElementException if there is no more input
+     */
+    public static float readFloat(String prompt) {
+        while (true) {
+            String answer = readLine(prompt).strip().replace(',', '.');
+            try {
+                float value = Float.parseFloat(answer);
+                if (Float.isFinite(value)) {
+                    return value;
+                }
+            } catch (NumberFormatException e) {
+                // the error message is printed below
+            }
+            println(message("error.notANumber"));
+        }
+    }
+
+    /**
+     * Prints a prompt and reads a decimal number of type {@code float} between
+     * {@code min} and {@code max}, both included.
+     *
+     * @param prompt the message shown to the user
+     * @param min    the smallest accepted value
+     * @param max    the largest accepted value
+     * @return the number typed by the user, such that {@code min <= x <= max}
+     * @throws IllegalArgumentException if {@code min > max}
+     * @throws NoSuchElementException   if there is no more input
+     */
+    public static float readFloat(String prompt, float min, float max) {
+        if (!(min <= max)) {
+            throw new IllegalArgumentException(message("error.emptyInterval", min, max));
+        }
+        while (true) {
+            float value = readFloat(prompt);
+            if (min <= value && value <= max) {
+                return value;
+            }
+            println(message("error.outOfRange", min, max));
         }
     }
 
@@ -513,6 +640,17 @@ public final class ConsoleHelper {
     private static void checkInterval(long min, long max) {
         if (min > max) {
             throw new IllegalArgumentException(message("error.emptyInterval", min, max));
+        }
+    }
+
+    /**
+     * Checks that the interval {@code [min, max]} is not empty and that both
+     * bounds are between {@code lowest} and {@code highest}.
+     */
+    private static void checkInterval(long min, long max, long lowest, long highest) {
+        checkInterval(min, max);
+        if (min < lowest || max > highest) {
+            throw new IllegalArgumentException(message("error.boundsOutOfType", min, max, lowest, highest));
         }
     }
 

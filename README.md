@@ -84,9 +84,15 @@ Choice: 1
 | `readString(String prompt)` | A non-empty text, without surrounding spaces. |
 | `readChar(String prompt)` | A single character. |
 | `readBoolean(String prompt)` | `true` for `y`, `yes`, `s`, `si`, `sì`, `true`; `false` for `n`, `no`, `false` (case is ignored). |
+| `readByte(String prompt)` | A `byte` (between -128 and 127). |
+| `readByte(String prompt, int min, int max)` | A `byte` between `min` and `max`, both included (the bounds must be valid `byte` values). |
+| `readShort(String prompt)` | A `short` (between -32768 and 32767). |
+| `readShort(String prompt, int min, int max)` | A `short` between `min` and `max`, both included (the bounds must be valid `short` values). |
 | `readInt(String prompt)` | An `int`. |
 | `readInt(String prompt, int min, int max)` | An `int` between `min` and `max`, both included. |
 | `readLong(String prompt)` | A `long`. |
+| `readFloat(String prompt)` | A `float`. |
+| `readFloat(String prompt, float min, float max)` | A `float` between `min` and `max`, both included. |
 | `readDouble(String prompt)` | A `double`. |
 | `readDouble(String prompt, double min, double max)` | A `double` between `min` and `max`, both included. |
 | `readIntArray(String name, int n)` | An array of `n` integers, asked one at a time as `name[0] = `, `name[1] = `, ... |

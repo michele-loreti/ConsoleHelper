@@ -74,6 +74,62 @@ class ConsoleHelperTest {
     }
 
     @Test
+    void readByteRejectsValuesOutOfRange() {
+        input("abc", "128", "-129", "-128");
+        assertEquals(Byte.MIN_VALUE, ConsoleHelper.readByte("n? "));
+        assertTrue(output().contains("Error: please enter an integer number."));
+        assertTrue(output().contains("between -128 and 127"));
+    }
+
+    @Test
+    void readShortRejectsValuesOutOfRange() {
+        input("40000", " 32767 ");
+        assertEquals(Short.MAX_VALUE, ConsoleHelper.readShort("n? "));
+        assertTrue(output().contains("between -32768 and 32767"));
+    }
+
+    @Test
+    void readByteInIntervalRejectsOutOfRange() {
+        input("0", "121", "300", "120");
+        assertEquals(120, ConsoleHelper.readByte("age? ", 1, 120));
+        assertEquals(3, output().split("between 1 and 120").length - 1);
+    }
+
+    @Test
+    void readByteInIntervalChecksTheBounds() {
+        assertThrows(IllegalArgumentException.class, () -> ConsoleHelper.readByte("n? ", 10, 1));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> ConsoleHelper.readByte("n? ", 0, 200));
+        assertTrue(e.getMessage().contains("between -128 and 127"));
+    }
+
+    @Test
+    void readShortInIntervalRejectsOutOfRange() {
+        input("-1", "1000");
+        assertEquals(1000, ConsoleHelper.readShort("n? ", 0, 1000));
+        assertTrue(output().contains("between 0 and 1000"));
+        assertThrows(IllegalArgumentException.class, () -> ConsoleHelper.readShort("n? ", -40000, 0));
+    }
+
+    @Test
+    void readFloatInIntervalRejectsOutOfRange() {
+        input("1,6", "0,1");
+        assertEquals(0.1f, ConsoleHelper.readFloat("x? ", 0, 1.5f));
+        assertTrue(output().contains("between 0.0 and 1.5"));
+        assertThrows(IllegalArgumentException.class, () -> ConsoleHelper.readFloat("x? ", 2, 1));
+        assertThrows(IllegalArgumentException.class, () -> ConsoleHelper.readFloat("x? ", Float.NaN, 1));
+    }
+
+    @Test
+    void readFloatAcceptsCommaAndDot() {
+        input("1,5", "2.25", "x", "1e40", "3");
+        assertEquals(1.5f, ConsoleHelper.readFloat("x? "));
+        assertEquals(2.25f, ConsoleHelper.readFloat("x? "));
+        assertEquals(3.0f, ConsoleHelper.readFloat("x? "));
+        assertEquals(2, output().split("Error").length - 1);
+    }
+
+    @Test
     void readStringRejectsEmptyAnswers() {
         input("   ", "  Ada Lovelace  ");
         assertEquals("Ada Lovelace", ConsoleHelper.readString("name? "));
