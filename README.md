@@ -19,6 +19,17 @@ public class Sum {
 }
 ```
 
+## Download
+
+Download the latest version of the library:
+**[consolehelper.jar](https://github.com/michele-loreti/ConsoleHelper/releases/latest/download/consolehelper.jar)**
+(Java 21 or later is required).
+
+Previous versions are available on the
+[Releases](https://github.com/michele-loreti/ConsoleHelper/releases) page.
+See [Using the library in a program](#using-the-library-in-a-program) for how
+to compile and run a program with it.
+
 ## How input works
 
 All the reading methods follow the same rules:
