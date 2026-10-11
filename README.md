@@ -162,6 +162,8 @@ The jar is created in `lib/build/libs/consolehelper.jar`.
 
 ## Using the library in a program
 
+### From the command line
+
 Compile and run a program with the jar on the classpath (on Windows, use `;`
 instead of `:` as separator):
 
@@ -170,7 +172,73 @@ javac -cp consolehelper.jar Sum.java
 java -cp consolehelper.jar:. Sum
 ```
 
-In an IDE, add `consolehelper.jar` as a library of the project.
+### In IntelliJ IDEA
+
+These steps are for a project created with **File | New | Project...**,
+choosing *Java* and the build system *IntelliJ*. For Gradle or Maven projects,
+see below.
+
+1. **Copy the jar into the project.** Create a folder named `lib` in the root
+   of the project (right-click the project name in the *Project* tool window,
+   then **New | Directory**) and copy `consolehelper.jar` into it, for
+   instance by dragging it from the file manager onto the folder.
+2. **Add the jar as a library.** Right-click `consolehelper.jar` in the
+   *Project* tool window and choose **Add as Library...**. In the dialog,
+   leave the default values (level *Project Library*, added to your module)
+   and click **OK**.
+3. **Use the class.** In your Java files, add the import
+
+   ```java
+   import consolehelper.ConsoleHelper;
+   ```
+
+   and run the program as usual (the green *Run* button next to `main`).
+   The input is typed in the *Run* tool window at the bottom of the screen.
+
+If **Add as Library...** is not in the menu, the same can be done from
+**File | Project Structure... | Modules**: select your module, open the
+*Dependencies* tab, click **+**, choose **JARs or Directories...** and select
+`lib/consolehelper.jar`.
+
+To check that everything works, expand *External Libraries* in the *Project*
+tool window: `consolehelper` should be listed. If the `import` is shown in
+red, the jar has not been added to the module.
+
+### In a Gradle or Maven project
+
+In a Gradle or Maven project, dependencies must be declared in the build file:
+libraries added with **Add as Library...** are removed when IntelliJ reloads
+the project. Copy the jar into a `lib` folder of the project and add it to
+the build file:
+
+- **Gradle** (`build.gradle.kts`):
+
+  ```kotlin
+  dependencies {
+      implementation(files("lib/consolehelper.jar"))
+  }
+  ```
+
+- **Maven**: install the jar in your local repository once
+
+  ```sh
+  mvn install:install-file -Dfile=lib/consolehelper.jar \
+      -DgroupId=consolehelper -DartifactId=consolehelper \
+      -Dversion=1.0.1 -Dpackaging=jar
+  ```
+
+  and add to `pom.xml`:
+
+  ```xml
+  <dependency>
+      <groupId>consolehelper</groupId>
+      <artifactId>consolehelper</artifactId>
+      <version>1.0.1</version>
+  </dependency>
+  ```
+
+Then reload the project in IntelliJ (the *Load Gradle/Maven Changes* button
+that appears in the editor).
 
 ## Testing programs that use ConsoleHelper
 
