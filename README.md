@@ -23,7 +23,7 @@ public class Sum {
 
 Download the latest version of the library:
 **[consolehelper.jar](https://github.com/michele-loreti/ConsoleHelper/releases/latest/download/consolehelper.jar)**
-(Java 21 or later is required).
+(Java 17 or later is required).
 
 Previous versions are available on the
 [Releases](https://github.com/michele-loreti/ConsoleHelper/releases) page.
@@ -151,7 +151,7 @@ replaced by the arguments and an apostrophe must be written twice (`''`).
 
 ## Building
 
-Requirements: JDK 21 (Gradle downloads it automatically if missing).
+Requirements: JDK 17 (Gradle downloads it automatically if missing).
 
 ```sh
 ./gradlew build      # compiles, runs the tests and builds the jar

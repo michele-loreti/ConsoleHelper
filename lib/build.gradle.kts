@@ -27,10 +27,10 @@ base {
     archivesName = "consolehelper"
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
+// Compile and test with Java 17, so that the jar also works on older JDKs.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
