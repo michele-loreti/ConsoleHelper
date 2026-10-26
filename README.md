@@ -234,7 +234,7 @@ the build file:
   ```sh
   mvn install:install-file -Dfile=lib/consolehelper.jar \
       -DgroupId=consolehelper -DartifactId=consolehelper \
-      -Dversion=1.1.0 -Dpackaging=jar
+      -Dversion=1.2.0 -Dpackaging=jar
   ```
 
   and add to `pom.xml`:
@@ -243,7 +243,7 @@ the build file:
   <dependency>
       <groupId>consolehelper</groupId>
       <artifactId>consolehelper</artifactId>
-      <version>1.1.0</version>
+      <version>1.2.0</version>
   </dependency>
   ```
 
