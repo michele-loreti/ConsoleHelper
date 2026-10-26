@@ -80,6 +80,11 @@ In `print(x)` and `println(x)`, `x` can be a `byte`, `short`, `int`, `char`,
 `long`, `float` or `double`, so a value can be printed without first turning
 it into a string: `ConsoleHelper.println(a + b)` prints the sum of `a` and `b`.
 
+> **Warning:** the sum of two `char`s is an `int`, not a string. For instance,
+> `ConsoleHelper.println('a' + 'b')` prints `195` (the sum of the codes of
+> `a` and `b`), not `ab`. To join characters, start from a string:
+> `ConsoleHelper.println("" + 'a' + 'b')` prints `ab`.
+
 ### Input
 
 | Method | Returns |
