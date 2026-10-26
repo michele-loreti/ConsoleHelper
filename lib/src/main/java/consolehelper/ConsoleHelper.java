@@ -105,6 +105,132 @@ public final class ConsoleHelper {
     }
 
     /**
+     * Prints an integer number of type {@code byte} without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(byte value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints an integer number of type {@code byte} and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(byte value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints an integer number of type {@code short} without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(short value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints an integer number of type {@code short} and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(short value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints an integer number without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(int value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints an integer number and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(int value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints a character without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(char value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints a character and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(char value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints an integer number of type {@code long} without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(long value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints an integer number of type {@code long} and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(long value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints a decimal number of type {@code float} without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(float value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints a decimal number of type {@code float} and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(float value) {
+        println("" + value);
+    }
+
+    /**
+     * Prints a decimal number without moving to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void print(double value) {
+        print("" + value);
+    }
+
+    /**
+     * Prints a decimal number and moves to a new line.
+     *
+     * @param value the value to print
+     */
+    public static void println(double value) {
+        println("" + value);
+    }
+
+    /**
      * Prints a formatted text, as {@link PrintStream#printf(String, Object...)}.
      * For instance, {@code printf("%d + %d = %d%n", 2, 3, 5)} prints
      * {@code 2 + 3 = 5} and moves to a new line.

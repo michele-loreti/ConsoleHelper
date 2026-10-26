@@ -41,6 +41,21 @@ class ConsoleHelperTest {
     }
 
     @Test
+    void printsPrimitiveValues() {
+        input();
+        ConsoleHelper.print((byte) 1);
+        ConsoleHelper.print((short) 2);
+        ConsoleHelper.print(3);
+        ConsoleHelper.print('c');
+        ConsoleHelper.print(4L);
+        ConsoleHelper.print(1.5f);
+        ConsoleHelper.println(2.5);
+        ConsoleHelper.println('x');
+        String nl = System.lineSeparator();
+        assertEquals("123c41.52.5" + nl + "x" + nl, output());
+    }
+
+    @Test
     void readIntRetriesUntilValid() {
         input("abc", "", " 42 ");
         assertEquals(42, ConsoleHelper.readInt("n? "));

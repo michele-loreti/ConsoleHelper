@@ -69,12 +69,16 @@ Choice: 1
 
 | Method | Description |
 |---|---|
-| `print(String text)` | Prints a text without a new line. |
-| `println(String text)`, `println()` | Prints a text (or nothing) and moves to a new line. |
+| `print(String text)`, `print(x)` | Prints a text or a value without a new line. |
+| `println(String text)`, `println(x)`, `println()` | Prints a text, a value (or nothing) and moves to a new line. |
 | `printf(String format, Object... args)` | Prints a formatted text, as `System.out.printf`. |
 | `printTitle(String title)` | Prints a title underlined with `=`. |
 | `printSeparator()` | Prints a line of `-`. |
 | `printArray(int[])`, `printArray(double[])`, `printArray(String[])` | Prints an array as `[1, 2, 3]`. |
+
+In `print(x)` and `println(x)`, `x` can be a `byte`, `short`, `int`, `char`,
+`long`, `float` or `double`, so a value can be printed without first turning
+it into a string: `ConsoleHelper.println(a + b)` prints the sum of `a` and `b`.
 
 ### Input
 
